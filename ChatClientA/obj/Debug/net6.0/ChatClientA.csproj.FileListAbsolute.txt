@@ -1,0 +1,15 @@
+/Users/daudahmed/Projects/ChatClientA/ChatClientA/bin/Debug/net6.0/ChatClientA
+/Users/daudahmed/Projects/ChatClientA/ChatClientA/bin/Debug/net6.0/ChatClientA.deps.json
+/Users/daudahmed/Projects/ChatClientA/ChatClientA/bin/Debug/net6.0/ChatClientA.runtimeconfig.json
+/Users/daudahmed/Projects/ChatClientA/ChatClientA/bin/Debug/net6.0/ChatClientA.dll
+/Users/daudahmed/Projects/ChatClientA/ChatClientA/bin/Debug/net6.0/ChatClientA.pdb
+/Users/daudahmed/Projects/ChatClientA/ChatClientA/obj/Debug/net6.0/ChatClientA.csproj.AssemblyReference.cache
+/Users/daudahmed/Projects/ChatClientA/ChatClientA/obj/Debug/net6.0/ChatClientA.GeneratedMSBuildEditorConfig.editorconfig
+/Users/daudahmed/Projects/ChatClientA/ChatClientA/obj/Debug/net6.0/ChatClientA.AssemblyInfoInputs.cache
+/Users/daudahmed/Projects/ChatClientA/ChatClientA/obj/Debug/net6.0/ChatClientA.AssemblyInfo.cs
+/Users/daudahmed/Projects/ChatClientA/ChatClientA/obj/Debug/net6.0/ChatClientA.csproj.CoreCompileInputs.cache
+/Users/daudahmed/Projects/ChatClientA/ChatClientA/obj/Debug/net6.0/ChatClientA.dll
+/Users/daudahmed/Projects/ChatClientA/ChatClientA/obj/Debug/net6.0/refint/ChatClientA.dll
+/Users/daudahmed/Projects/ChatClientA/ChatClientA/obj/Debug/net6.0/ChatClientA.pdb
+/Users/daudahmed/Projects/ChatClientA/ChatClientA/obj/Debug/net6.0/ChatClientA.genruntimeconfig.cache
+/Users/daudahmed/Projects/ChatClientA/ChatClientA/obj/Debug/net6.0/ref/ChatClientA.dll
