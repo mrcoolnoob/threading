@@ -7,9 +7,10 @@ public class Program
     {
         Socket socket = new Socket();
         Thread sender = new Thread(socket.SendPacket);
+        //Thread receiver = new Thread(new ParameterizedThreadStart(socket.ListeningServer));
         Thread receiver = new Thread(socket.ListeningServer);
 
-        receiver.Start();
+        socket.StartServer(receiver);
 
         while (true)
         {
@@ -18,9 +19,11 @@ public class Program
             switch (num)
             {
                 case 1:
-                    if (receiver.IsAlive) {
-                        socket.Listen = false;
-                        Console.WriteLine("Waiting for receiver thread to finish");
+                    if (receiver.IsAlive)
+                    { 
+                        Console.WriteLine("Shutting down receiver");
+                        socket.ShutDownServer();
+                        Console.WriteLine("Waiting for receiver to completely shutdown");
                         receiver.Join();
                     }
                     Console.WriteLine("Sender started");
@@ -29,13 +32,9 @@ public class Program
                     Console.WriteLine("Waiting for sender to complete");
                     sender.Join();
                     Console.WriteLine("Sender thread execution completed");
-                    socket.Listen = true;
                     receiver = new Thread(socket.ListeningServer);
-                    receiver.Start();
+                    socket.StartServer(receiver);
                     Console.WriteLine("Receiver started");
-                    break;
-                case 2:
-
                     break;
                 default:
                     break;

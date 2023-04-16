@@ -9,39 +9,28 @@ namespace ChatClientA
 	{
 		UdpClient udpClient;
 		IPEndPoint endPoint = new IPEndPoint(IPAddress.Any, 2000);
-        private readonly object listenLock = new object();
-        private bool listen = true;
+		// initially set to the non-signaled-state => false
+		ManualResetEvent mrse = new ManualResetEvent(false);
 
-        public bool Listen
-        {
-            get
-            {
-                lock (listenLock)
-                {
-                    return listen;
-                }
-            }
-            set
-            {
-                lock (listenLock)
-                {
-                    listen = value;
-                }
-            }
-        }
-
-        public Socket()
+		public Socket()
 		{
 			udpClient = new UdpClient(1000); // localport
 			udpClient.Connect(endPoint); // remoteport
-            udpClient.Client.ReceiveTimeout = 100;
+			udpClient.Client.ReceiveTimeout = 100;
+		}
+
+		public void StartServer(Thread receiver)
+		{
+			// in order for mrse (ManualResetEvent) you need to pass it as an argument
+			//receiver.Start(mrse);
+			mrse.Reset();
+            receiver.Start();
         }
 
         public void SendPacket()
 		{
 			try
 			{
-                udpClient.Client.ReceiveTimeout = 10000;
                 byte[] msg = Encoding.UTF8.GetBytes("Hey");
 				udpClient.Send(msg);
 				byte[] ack = udpClient.Receive(ref endPoint);
@@ -54,30 +43,43 @@ namespace ChatClientA
 
         }
 
+		public void ShutDownServer()
+		{
+            // Set the stopListeningEvent to signal the ListeningServer() method to exit gracefully
+            mrse.Set();
+        }
 		public void ReceivePacket()
 		{
 			byte[] msg = udpClient.Receive(ref endPoint);
 			Console.WriteLine(Encoding.ASCII.GetString(msg));
 		}
 
-		public void ListeningServer()
+		public void ListeningServer(object state)
 		{
-			while(Listen)
+            Console.WriteLine("Server starting");
+            //ManualResetEvent stopListeningEvent = (ManualResetEvent)state;
+            while (true)
 			{
 				try
 				{
                     byte[] msg = udpClient.Receive(ref endPoint);
                     Console.WriteLine(Encoding.ASCII.GetString(msg));
-                    Console.WriteLine("listening");
+
                 }
 				catch (Exception ex)
 				{
-					continue;
-				}
 
+                }
+                // wait zero second for the signal if signaled it returns True
+                // True then simply exit the Thread
+                if (mrse.WaitOne(0))
+                {
+                    Console.WriteLine("Signal received to end the thread");
+                    break;
+                }
             }
-			Console.WriteLine("Receiver thread last line");
-		}
-	}
+            Console.WriteLine("Server exiting");
+        }
+    }
 }
 
